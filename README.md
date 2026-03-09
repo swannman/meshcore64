@@ -5,6 +5,10 @@ A Commodore 64 chat client for [MeshCore](https://github.com/ripplebiz/MeshCore)
 ![C64](https://img.shields.io/badge/platform-Commodore%2064-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+## Demo
+
+![MeshCore64 Demo](demo.gif)
+
 ## Features
 
 - **Channel messaging** &mdash; Send and receive on up to 8 mesh channels
