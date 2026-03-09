@@ -1,0 +1,25 @@
+# Build output
+build/
+
+# Editor
+*~
+*.swp
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+
+# cc65 intermediate files
+*.o
+*.lst
+*.map
+
+# VICE
+*.vsf
+
+# Disk images
+*.d64
+
+# Claude Code
+.claude/
+
+# macOS
+.DS_Store

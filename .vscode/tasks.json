@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "owner": "cc65",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^(.+?)\\((\\d+)\\):\\s+(Warning|Error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            }
+        },
+        {
+            "label": "Run in VICE",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "D64=build/meshcore64.d64; PRG=build/meshcore64.prg; if [ ! -f \"$D64\" ]; then c1541 -format 'meshcore,mc' d64 \"$D64\"; fi; c1541 -attach \"$D64\" -delete meshcore64 -write \"$PRG\" meshcore64 2>/dev/null || true; pkill x64sc 2>/dev/null || true; sleep 1; x64sc -remotemonitor -acia1 -acia1base 56832 -acia1mode 1 -acia1irq 1 -myaciadev 2 -rsdev3 127.0.0.1:25232 -rsdev3baud 9600 -rsdev3ip232 -8 \"$D64\" -autostart \"$PRG\""
+            ],
+            "dependsOn": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "Start tcpser",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "pkill tcpser 2>/dev/null || true; sleep 0.5; tcpser -v 25232 -s 9600 -l 4"
+            ],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
