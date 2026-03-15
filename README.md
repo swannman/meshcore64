@@ -71,6 +71,30 @@ x64sc \
     -autostart build/meshcore64.prg
 ```
 
+## Running on C64 Ultimate
+
+If you have an [Ultimate 64](https://ultimate64.com) or [1541 Ultimate-II+](https://1541ultimate.net), the built-in SwiftLink emulation can connect directly to your MeshCore companion over your local network — no physical cartridge or tcpser needed.
+
+### One-time setup
+
+In the Ultimate configuration menu (F2 on Ultimate 64, or the cartridge button on Ultimate-II+):
+
+1. Enable **Modem** / ACIA emulation
+2. Set **ACIA Base Address** to `$DE00`
+3. Set **IRQ Mode** to **NMI**
+4. Disable any cartridge or REU emulation that uses the IO1 ($DE00) address space
+
+### Loading the program
+
+Copy `build/meshcore64.d64` to a USB stick or transfer it via FTP to the Ultimate (port 21), then mount the D64 image and:
+
+```
+LOAD "MESHCORE64",8,1
+RUN
+```
+
+On first launch, enter your companion device's IP:port (e.g., `192.168.2.145:5000`). The Ultimate's modem emulation handles the `ATDT` dial command and opens a raw TCP socket to the companion.
+
 ## Usage
 
 On first launch you'll see a setup screen to enter your companion device's IP:port (e.g., `192.168.2.145:5000`). This is saved to disk for subsequent launches.
